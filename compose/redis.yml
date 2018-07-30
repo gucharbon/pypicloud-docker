@@ -5,10 +5,19 @@ services:
     depends_on:
       - redis
     image: stevearc/pypicloud
-    ports:
-      - "8080:8080"
+    expose:
+      - 8080
     volumes:
       - ./config-redis.ini:/etc/pypicloud/config.ini:ro
       - ./wait-for:/wait-for:ro
+      - data:/data
   redis:
     image: redis
+    volumes:
+      - data
+        
+volumes:
+  data:
+    driver: local
+     
+    
